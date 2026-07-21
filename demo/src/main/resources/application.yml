@@ -4,11 +4,35 @@ server:
 spring:
   application:
     name: config-server
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+---
+# Profile native — ficheiros montados em volume (Docker Compose local)
+spring:
+  config:
+    activate:
+      on-profile: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:/config-repo
+
+---
+# Profile git — repositório remoto (default se não passares SPRING_PROFILES_ACTIVE)
+spring:
+  config:
+    activate:
+      on-profile: git
   cloud:
     config:
       server:
         git:
-          # Opção 1: Repositório Git (recomendado)
           uri: https://github.com/klaillton/config-repo.git
           default-label: main
-          search-paths: '{application}'
+          # search-paths: se os yml estiverem na raiz do repo, não uses {application}
