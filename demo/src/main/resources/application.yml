@@ -35,4 +35,3 @@ spring:
         git:
           uri: https://github.com/klaillton/config-repo.git
           default-label: main
-          # search-paths: se os yml estiverem na raiz do repo, não uses {application}
